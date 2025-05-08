@@ -6,6 +6,6 @@ import (
 )
 
 func ConnectDB() (*sql.DB, error) {
-	conn := "postgresql://postgres:postgres@localhost:5432/apirest?sslmode=disable"
+	conn := "postgresql://postgres:Guinho%4001@localhost:5432/products_apirest?sslmode=disable"
 	return sql.Open("postgres", conn)
 }
