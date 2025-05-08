@@ -7,9 +7,15 @@ import (
 	"go-api/internal/repository"
 	"go-api/internal/usecase"
 	"log"
-
+	echoSwagger "github.com/swaggo/echo-swagger"
+	_ "go-api/docs"
 	"github.com/labstack/echo/v4"
 )
+
+// @title           API REST Gerenciamento de produtos
+// @version         1.0
+// @description     CRUD para gerenciamento de produtos.
+// @host            localhost:8080
 
 func main() {
 	server := echo.New()
@@ -20,10 +26,6 @@ func main() {
 	}
 	defer dbConn.Close()
 
-	server.GET("/ping", func(ctx echo.Context) error {
-		return ctx.JSON(200, map[string]string{"message": "pong"})
-	})
-
 	queries := db.New(dbConn)
 
 	ProductRepository := repository.NewProductRepository(queries)
@@ -31,11 +33,13 @@ func main() {
 	ProductController := controller.NewProductController(ProductUseCase)
 
 
+	server.GET("/swagger/*", echoSwagger.WrapHandler)
+
 	server.GET("/products", ProductController.GetProduct)
-	server.GET("/products/:id", ProductController.GetProductById)
-	server.POST("/products", ProductController.CreateProduct)
-	server.PUT("/products/:id", ProductController.UpdateProduct)
-	server.DELETE("/products/:id", ProductController.DeleteProduct)
+	server.GET("/product/:id", ProductController.GetProductById)
+	server.POST("/product", ProductController.CreateProduct)
+	server.PUT("/product/:id", ProductController.UpdateProduct)
+	server.DELETE("/product/:id", ProductController.DeleteProduct)
 
 
 	fmt.Println("Rodando...")

@@ -16,6 +16,17 @@ func NewProductController(uc *usecase.ProductUseCase) *ProductController {
 	return &ProductController{usecase: uc}
 }
 
+
+// CreateProduct godoc
+// @Summary      Cria um novo produto
+// @Description  Cria um produto com nome, descrição, preço e data de venda
+// @Tags         produtos
+// @Accept       json
+// @Produce      json
+// @Param        produto body db.CreateProductParams true "Dados do produto"
+// @Success      201 {object} db.Product
+// @Failure      400 {object} map[string]string
+// @Router       /product [post]
 func (pc *ProductController) CreateProduct(ctx echo.Context) error {
 	var req db.CreateProductParams
 
@@ -23,8 +34,7 @@ func (pc *ProductController) CreateProduct(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 	}
 
-	req.DataVenda.Format("2006-01-02")
-
+	
 
 	product, err := pc.usecase.CreateProduct(ctx.Request().Context(), req) 
 		if err != nil {
@@ -36,6 +46,15 @@ func (pc *ProductController) CreateProduct(ctx echo.Context) error {
 	return ctx.JSON(http.StatusCreated, product)
 }
 
+
+// GetProduct godoc
+// @Summary      Lista todos os produtos
+// @Description  Retorna todos os produtos cadastrados
+// @Tags         produtos
+// @Produce      json
+// @Success      200 {array} db.Product
+// @Failure      500 {object} map[string]string
+// @Router       /products [get]
 func (pc *ProductController) GetProduct(ctx echo.Context) error {
 	product, err := pc.usecase.ListProduct(ctx.Request().Context()) 
 	if err != nil {
@@ -45,6 +64,17 @@ func (pc *ProductController) GetProduct(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, product)
 }
 
+
+// GetProductById godoc
+// @Summary      Busca um produto por ID
+// @Description  Retorna os dados de um produto específico
+// @Tags         produtos
+// @Produce      json
+// @Param        id path int true "ID do produto"
+// @Success      200 {object} db.Product
+// @Failure      400 {object} map[string]string
+// @Failure      404 {object} map[string]string
+// @Router       /product/{id} [get]
 func (pc *ProductController) GetProductById(ctx echo.Context) error {
 	idParam := ctx.Param("id")
 
@@ -65,6 +95,18 @@ func (pc *ProductController) GetProductById(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, product)
 }
 
+
+// UpdateProduct godoc
+// @Summary      Atualiza um produto
+// @Description  Atualiza os dados de um produto existente
+// @Tags         produtos
+// @Accept       json
+// @Produce      json
+// @Param        id path int true "ID do produto"
+// @Param        produto body db.UpdateProductParams true "Dados atualizados"
+// @Success      200 {object} db.Product
+// @Failure      400 {object} map[string]string
+// @Router       /product/{id} [put]
 func (pc *ProductController) UpdateProduct(ctx echo.Context) error {
 	idParam := ctx.Param("id")
 
@@ -88,6 +130,16 @@ func (pc *ProductController) UpdateProduct(ctx echo.Context) error {
 	return ctx.JSON(http.StatusOK, product)
 }
 
+
+// DeleteProduct godoc
+// @Summary      Remove um produto
+// @Description  Exclui um produto do banco de dados
+// @Tags         produtos
+// @Param        id path int true "ID do produto"
+// @Success      204
+// @Failure      400 {object} map[string]string
+// @Failure      500 {object} map[string]string
+// @Router       /product/{id} [delete]
 func (pc *ProductController) DeleteProduct(ctx echo.Context) error {
 	idParam := ctx.Param("id")
 
