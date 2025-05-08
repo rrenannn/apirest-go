@@ -24,7 +24,7 @@ Este projeto é uma API RESTful desenvolvida em Go utilizando o framework [Echo]
 │   ├── db/             # Código gerado pelo SQLC
 │   ├── repository/     # Acesso ao banco de dados
 │   ├── usecase/        # Lógica de negócio
-│   └── handler/        # Controladores HTTP (Echo)
+│   └── controller/        # Controladores HTTP (Echo)
 ├── docker-compose.yml
 ├── Dockerfile
 ├── go.mod / go.sum
