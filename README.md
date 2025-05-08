@@ -56,11 +56,11 @@ Este projeto é uma API RESTful desenvolvida em Go utilizando o framework [Echo]
 
 | Método | Rota               | Descrição               |
 |--------|--------------------|-------------------------|
-| GET    | `/users`           | Listar todos os usuários |
-| POST   | `/users`           | Criar um novo usuário    |
-| GET    | `/users/:id`       | Buscar usuário por ID    |
-| PUT    | `/users/:id`       | Atualizar usuário        |
-| DELETE | `/users/:id`       | Deletar usuário          |
+| GET    | `/products`         | Listar todos os produtos |
+| POST   | `/product`           | Criar um novo produto    |
+| GET    | `/product/:id`       | Buscar produto por ID    |
+| PUT    | `/product/:id`       | Atualizar produto        |
+| DELETE | `/product/:id`       | Deletar produto          |
 
 ---
 
