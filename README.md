@@ -71,9 +71,9 @@ Use esse formato no Postman para fazer um `POST` ou `PUT`:
 ```json
 {
   "nome": "Geladeira",
-  "descricao": "Eletrolux 220W",
-  "preco": "7899.99",
-  "data_venda": "2023-02-22T00:00:00Z"
+  "descricao": "Eletrolux Frost Free",
+  "preco": "3499.99",
+  "data_venda": "2025-02-22T00:00:00Z"
 }
 ```
 
