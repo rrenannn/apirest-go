@@ -5,7 +5,6 @@ import (
 	"go-api/internal/usecase"
 	"net/http"
 	"strconv"
-
 	"github.com/labstack/echo/v4"
 )
 
@@ -24,16 +23,21 @@ func (pc *ProductController) CreateProduct(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 	}
 
+	req.DataVenda.Format("2006-01-02")
+
+
 	product, err := pc.usecase.CreateProduct(ctx.Request().Context(), req) 
 		if err != nil {
 			return ctx.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 		}
 	
+	product.DataVenda = req.DataVenda
+	
 	return ctx.JSON(http.StatusCreated, product)
 }
 
 func (pc *ProductController) GetProduct(ctx echo.Context) error {
-	product, err := pc.usecase.GetProduct(ctx.Request().Context()) 
+	product, err := pc.usecase.ListProduct(ctx.Request().Context()) 
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
@@ -49,7 +53,7 @@ func (pc *ProductController) GetProductById(ctx echo.Context) error {
 		return ctx.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 	}
 
-	product, err := pc.usecase.GetProductById(ctx.Request().Context(), int32(id))
+	product, err := pc.usecase.GetProduct(ctx.Request().Context(), int32(id))
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}

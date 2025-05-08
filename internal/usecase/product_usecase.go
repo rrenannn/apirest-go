@@ -4,16 +4,17 @@ import (
 	"context"
 	"errors"
 	"go-api/internal/db"
+	"go-api/internal/repository"
 	"strconv"
-	"time"
 	"strings"
+	"time"
 )
 
 type ProductUseCase struct {
-	repo *db.Queries
+	repo repository.ProductRepositoryInterface
 }
 
-func NewProductUseCase(repo *db.Queries) *ProductUseCase {
+func NewProductUseCase(repo repository.ProductRepositoryInterface) *ProductUseCase {
 	return &ProductUseCase{repo: repo}
 }
 
@@ -68,11 +69,11 @@ func validateUpdateProduct(arg db.UpdateProductParams) error {
 }
 
 
-func (pu *ProductUseCase) GetProduct(ctx context.Context) ([]db.Product, error) {
+func (pu *ProductUseCase) ListProduct(ctx context.Context) ([]db.Product, error) {
 	return pu.repo.ListProduct(ctx)
 }
 
-func (pu *ProductUseCase) GetProductById(ctx context.Context, id int32) (db.Product, error) {
+func (pu *ProductUseCase) GetProduct(ctx context.Context, id int32) (db.Product, error) {
 	return pu.repo.GetProduct(ctx, id)
 }
 
