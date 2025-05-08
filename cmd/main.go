@@ -29,7 +29,13 @@ func main() {
 	ProductRepository := repository.NewProductRepository(queries)
 	ProductUseCase := usecase.NewProductUseCase(ProductRepository)
 	ProductController := controller.NewProductController(ProductUseCase)
-	
+
+
+	server.GET("/products", ProductController.GetProduct)
+	server.GET("/products/:id", ProductController.GetProductById)
+	server.POST("/products", ProductController.CreateProduct)
+	server.PUT("/products/:id", ProductController.UpdateProduct)
+	server.DELETE("/products/:id", ProductController.DeleteProduct)
 
 
 	fmt.Println("Rodando...")
