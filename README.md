@@ -64,6 +64,19 @@ Este projeto é uma API RESTful desenvolvida em Go utilizando o framework [Echo]
 
 ---
 
+## 📄 Exemplo de JSON para testes
+
+Use esse formato no Postman para fazer um `POST` ou `PUT`:
+
+```json
+{
+  "nome": "Geladeira",
+  "descricao": "Eletrolux 220W",
+  "preco": "7899.99",
+  "data_venda": "2023-02-22T00:00:00Z"
+}
+```
+
 ## 📘 Documentação Swagger
 
 Após rodar o projeto, acesse:
