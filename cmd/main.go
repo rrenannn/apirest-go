@@ -1,8 +1,9 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"go-api/internal/db"
+	"log"
 
 	"github.com/labstack/echo/v4"
 )
@@ -20,5 +21,6 @@ func main() {
 		return ctx.JSON(200, map[string]string{"message": "pong"})
 	})
 
+	fmt.Println("Rodando...")
 	server.Start(":8080")
 }
